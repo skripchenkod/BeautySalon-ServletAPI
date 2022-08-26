@@ -11,6 +11,7 @@ public class User implements Serializable {
   private String password;
   private Role role;
   private List<Reservation> reservations;
+  private String email;
 
   public User(Integer id, String username, String password, Role role, List<Reservation> reservations) {
     this.id = id;
@@ -37,6 +38,14 @@ public class User implements Serializable {
     this.username = username;
     this.password = password;
     this.role = role;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String eMail) {
+    this.email = eMail;
   }
 
   public Integer getId() {

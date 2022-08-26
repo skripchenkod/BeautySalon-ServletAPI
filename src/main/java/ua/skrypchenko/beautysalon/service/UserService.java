@@ -34,4 +34,17 @@ public class UserService {
     public List<Rating> getSortMastersByRating() {
         return userDao.findAllSortedMastersByRating();
     }
+
+    public String saveUser(UserDto userDto) {
+        String isExist = "User is exist";
+        String success = "Registration is success";
+
+        if (!userDao.isExistUser(userDto.getUserName())) {
+
+            userDao.saveUser(userDto);
+
+            return success;
+        }
+        return isExist;
+    }
 }

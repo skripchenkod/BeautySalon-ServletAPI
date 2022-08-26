@@ -17,7 +17,7 @@ public class UserDaoJdbcImpl implements UserDao {
     private final String SQL_FIND_ALL_MASTERS = "SELECT rating_id, username, rating_mark FROM users left join ratings  on user_id = ratings.master_id WHERE  role= 'MASTER' ";
     private final String SQL_FIND_ALL_SORTED_MASTERS_BY_NAME = "SELECT rating_id, username, rating_mark FROM users left join ratings  on user_id = ratings.master_id WHERE  role= 'MASTER' ORDER BY username ASC ";
     private final String SQL_FIND_ALL_SORTED_MASTERS_BY_RATING_MARK = "SELECT rating_id, username, rating_mark FROM users left join ratings  on user_id = ratings.master_id WHERE  role= 'MASTER' ORDER BY rating_mark DESC ";
-    private final String SQL_SAVE_USER = "INSERT INTO users(username, password, balance_id, role_id) VALUES (?, ?, ?, ?)";
+    private final String SQL_SAVE_USER = "INSERT INTO users (password, role, username, e_mail) VALUES (?, ?, ?, ?);";
     private final String SQL_FIND_USER_BY_NAME = "SELECT * FROM users WHERE username = ?";
     private final String SQL_FIND_USER_BY_NAME_AND_PASSWORD = "SELECT * FROM users WHERE username = ? and password = ?";
     private final String SQL_EDIT_STATUS = "UPDATE balance SET status = ? WHERE id = (SELECT users.balance_id FROM users WHERE username = ?)";
@@ -45,22 +45,22 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(User userEntity) {
-//        try {
-//            this.connection = dataSource.getConnection();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(SQL_SAVE_USER);
-//            ps.setString(1, userEntity.getUserName());
-//            ps.setString(2, userEntity.getPassword());
-//            ps.setInt(3, balanceDao.createBalance(userEntity));
-//            ps.setInt(4, userEntity.getRole().getId());
-//            ps.execute();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+    public void saveUser(UserDto user) {
+        try {
+            this.connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            PreparedStatement ps = connection.prepareStatement(SQL_SAVE_USER);
+            ps.setString(1, user.getPassword());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, Role.CLIENT.toString());
+            ps.setString(4, user.getEmail());
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -35,6 +35,15 @@ public class Reservation {
     this.end = end;
   }
 
+  public Reservation(Integer id, Date data, Time start, Time end, Procedure procedure, User beautyMaster) {
+    this.id = id;
+    this.data = data;
+    this.start = start;
+    this.end = end;
+    this.procedure = procedure;
+    this.beautyMaster = beautyMaster;
+  }
+
   public Reservation(Date data, Time start, User beautyMaster) {
     this.data = data;
     this.start = start;
@@ -46,6 +55,10 @@ public class Reservation {
 
   public Integer getId() {
     return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public Date getStart() {

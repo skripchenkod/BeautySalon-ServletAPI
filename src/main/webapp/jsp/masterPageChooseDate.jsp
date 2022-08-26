@@ -6,6 +6,7 @@
     <link href="/css/styles1.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <jsp:include page='masterPage.jsp'>
     <jsp:param name="workdays" value="${workday}"/>
 </jsp:include>

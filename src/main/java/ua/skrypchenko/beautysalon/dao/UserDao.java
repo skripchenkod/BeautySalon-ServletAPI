@@ -13,7 +13,7 @@ public interface UserDao {
 
     List<Rating> findAllSortedMastersByRating();
 
-    void saveUser(User user);
+    void saveUser(UserDto user);
 
     User getUser(UserDto userDto);
 

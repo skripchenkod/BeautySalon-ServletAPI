@@ -14,7 +14,7 @@
 
     </div>
     <table>
-        <form action="chooseFreeSlots" method="get">
+        <form action="/clientPage/chooseFreeSlots" method="get">
             <tr>
                 <th>Master</th>
                 <th>Work days</th>
@@ -34,11 +34,9 @@
                     <td><input hidden name="mastername" value="${schedule.masterId.username}"></td>
                 </tr>
             </c:forEach>
-            <input type="submit" value="Choose time">
-
-        </form>
-
     </table>
+            <input type="submit" value="Choose time">
+        </form>
 </div>
 </body>
 </html>

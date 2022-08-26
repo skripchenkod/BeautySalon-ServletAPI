@@ -29,9 +29,7 @@ public class GuestServlet extends HttpServlet {
         req.setAttribute("masters", masters);
 
         req.getServletContext().getRequestDispatcher("/jsp/guestPage.jsp").forward(req, resp);
-
     }
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

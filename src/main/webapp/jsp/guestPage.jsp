@@ -56,11 +56,12 @@
     <div class="form-style-2-heading">
     </div>
     <tr class="form-style-2-heading">
-        Please log in!
+        Please log in or Registration!
     </tr>
 
     <form action="logIn">
-        <input type="submit" value="Log in">
+        <input formaction="/logIn" type="submit" value="Log in">
+        <input formaction="/registration" type="submit" value="Registration">
     </form>
 </div>
 </body>

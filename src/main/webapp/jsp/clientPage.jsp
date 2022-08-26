@@ -6,12 +6,15 @@
     <link href="/css/styles1.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<jsp:include page='logOut.jsp'>
+    <jsp:param name="workdays" value="${workday}"/>
+</jsp:include>
 <div class="form-style-2">
     <div class="form-style-2-heading">
         Hello Client!
     </div>
     <table>
-        <form action="clientPage/chooseDate" method="get">
+        <form action="/clientPage/chooseDate" method="get">
         <tr>
             <th>Name of procedure</th>
             <th>Description</th>
@@ -26,9 +29,9 @@
                 <td><input type="radio" name="procedureName" value="${procedure.name}"></td>
             </tr>
         </c:forEach>
+    </table>
             <input type="submit" value="chek free data" name="fg">
         </form>
-    </table>
         </form>
 
     </table>

@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ProcedureDao {
     List<Procedure> getAll();
+
     List<Procedure> getProcedureByNameOfMaster(String name);
-
-
 }

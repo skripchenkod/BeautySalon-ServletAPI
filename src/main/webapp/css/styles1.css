@@ -78,11 +78,11 @@
 
 .form-style-2 .section{
     font: normal 20px 'Bitter', serif;
-    color: #67ad2a;
+    color: #0072FF;
     margin-bottom: 5px;
 }
 .form-style-2 .section span {
-    background: #2aad2c;
+    background: #0072FF;
     padding: 5px 10px 5px 10px;
     position: absolute;
     border-radius: 50%;
@@ -96,7 +96,7 @@
 }
 .form-style-2 input[type="button"],
 .form-style-2 input[type="submit"]{
-    background: #2aad4b;
+    background: #0072FF;
     padding: 8px 20px 8px 20px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -107,12 +107,12 @@
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
-    border: 1px solid #629e25;
+    border: 1px solid #0072ff;
     font-size: 15px;
 }
 .form-style-2 input[type="button"]:hover,
 .form-style-2 input[type="submit"]:hover{
-    background: #3d812a;
+    background: #0072FF;
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);

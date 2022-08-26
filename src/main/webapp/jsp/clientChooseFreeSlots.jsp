@@ -23,9 +23,7 @@
                     <td><input type="submit" name="freeslots" value="${slots}"></td>
                 </tr>
             </c:forEach>
-            <input type="submit" value="Choose time">
         </form>
-
     </table>
 </div>
 </body>
