@@ -18,14 +18,12 @@
         <tr>
             <th>Name of procedure</th>
             <th>Description</th>
-            <th>Duration</th>
             <th>Choose procedure</th>
         </tr>
         <c:forEach items="${procedures}" var="procedure">
             <tr>
                 <td>${procedure.name}</td>
                 <td>${procedure.description}</td>
-                <td>${procedure.durationHours}</td>
                 <td><input type="radio" name="procedureName" value="${procedure.name}"></td>
             </tr>
         </c:forEach>

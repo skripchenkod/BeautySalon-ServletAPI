@@ -27,6 +27,10 @@ public class UserService {
         return userDao.findAllMasters();
     }
 
+    public String getEmail(String emailName){
+        return userDao.getEmailUser(emailName);
+    }
+
     public List<Rating> getSortMastersByName() {
         return userDao.findAllSortedMastersByName();
     }

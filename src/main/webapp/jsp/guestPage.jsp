@@ -14,13 +14,11 @@
         <tr>
             <th>Name of procedure</th>
             <th>Description</th>
-            <th>Duration</th>
         </tr>
         <c:forEach items="${procedures}" var="procedure">
             <tr>
                 <td>${procedure.name}</td>
                 <td>${procedure.description}</td>
-                <td>${procedure.durationHours}</td>
             </tr>
         </c:forEach>
     </table>

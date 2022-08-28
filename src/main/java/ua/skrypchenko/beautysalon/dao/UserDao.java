@@ -18,4 +18,6 @@ public interface UserDao {
     User getUser(UserDto userDto);
 
     boolean isExistUser(String userName);
+
+    String getEmailUser(String userName);
 }

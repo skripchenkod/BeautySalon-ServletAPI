@@ -20,6 +20,7 @@ public class ReservationImpl implements ReservationDao {
     private String SQL_UPDATE_RESERVATION = "UPDATE reservations SET start_hour = ?, end_hour = ? WHERE reservation_id = ?";
     private String SQL_INSERT_RESERVATION = "INSERT INTO reservations (end_hour, procedure_id, start_hour, beauty_master_user_id, client_user_id, data) VALUES (?,(SELECT procedure_id from procedures WHERE name = ?), ?, (SELECT user_id from users WHERE username = ?),(SELECT user_id FROM users WHERE username = ?), ?)";
     private final String SQL_DELETE_RESERVATION = "DELETE from reservations WHERE start_hour = ? AND data = ? AND beauty_master_user_id = (SELECT user_id username from users WHERE username = ?)";
+    private final String SQL_GET_CLIENT_NAME = "SELECT username from users WHERE user_id = (SELECT client_user_id from reservations  WHERE start_hour = ? AND data = ? AND beauty_master_user_id = (SELECT user_id username from users WHERE username = ?))";
     private final String SQL_GET_RESERVATION_BY_CLIENT = "SELECT reservation_id as id,start_hour, end_hour, users.username as master_name, procedures.name as procedure_name, data from reservations, users, procedures WHERE reservations.beauty_master_user_id = users.user_id AND reservations.procedure_id = procedures.procedure_id AND  client_user_id = (SELECT user_id from users WHERE username = ?)";
 
     private final DataSource dataSource = PostgresConfig.getInstance();
@@ -100,6 +101,28 @@ public class ReservationImpl implements ReservationDao {
         }
     }
 
+    @Override
+    public String getClientName(Reservation reservation) {
+        String clientName = null;
+        try {
+            this.connection = dataSource.getConnection();
+
+            PreparedStatement ps = connection.prepareStatement(SQL_GET_CLIENT_NAME);
+
+            ps.setTime(1, Time.valueOf(reservation.getStart().toString()));
+            ps.setDate(2, Date.valueOf(reservation.getData().toString()));
+            ps.setString(3, reservation.getBeautyMaster().getUsername());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                clientName = rs.getString("username");
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        }
+        return clientName;
+    }
+
     public List<Reservation> getReservationByClient(String clientName) {
         List<Reservation> reservations = new ArrayList<>();
         try {
@@ -126,7 +149,7 @@ public class ReservationImpl implements ReservationDao {
     }
 
     @Override
-    public void updateReservation (Reservation reservation){
+    public void updateReservation(Reservation reservation) {
         try {
             this.connection = dataSource.getConnection();
 
@@ -136,21 +159,19 @@ public class ReservationImpl implements ReservationDao {
             ps.setInt(3, reservation.getId());
             ResultSet rs = ps.executeQuery();
 
-        }
-        catch (SQLException s){
+        } catch (SQLException s) {
             s.printStackTrace();
         }
     }
 
     @Override
-    public void deleteReservation(int reservationId){
+    public void deleteReservation(int reservationId) {
         try {
             this.connection = dataSource.getConnection();
             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_RESERVATION_BY_ID);
             ps.setInt(1, reservationId);
             ResultSet rs = ps.executeQuery();
-        }
-        catch (SQLException s){
+        } catch (SQLException s) {
             s.printStackTrace();
         }
 

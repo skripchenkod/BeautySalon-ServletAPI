@@ -1,11 +1,11 @@
 package ua.skrypchenko.beautysalon.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Comment {
 
-  private final Integer id;
+  private  Integer id;
 
   private User master;
 
@@ -17,13 +17,16 @@ public class Comment {
 
   private Date commentDate;
 
-  public Comment(CommentBuilder builder) {
-    this.id = builder.id;
-    this.master = builder.master;
-    this.commentator = builder.commentator;
-    this.commentText = builder.commentText;
-    this.serviceMark = builder.serviceMark;
-    this.commentDate = builder.commentDate;
+  public Comment(Integer id, User master, User commentator, String commentText, int serviceMark, Date commentDate) {
+    this.id = id;
+    this.master = master;
+    this.commentator = commentator;
+    this.commentText = commentText;
+    this.serviceMark = serviceMark;
+    this.commentDate = commentDate;
+  }
+
+  public Comment() {
   }
 
   public Integer getId() {
@@ -98,54 +101,5 @@ public class Comment {
             ", serviceMark=" + serviceMark +
             ", commentDate=" + commentDate +
             '}';
-  }
-
-  public static final class CommentBuilder {
-    private Integer id;
-    private User master;
-    private User commentator;
-    private String commentText;
-    private int serviceMark;
-    private Date commentDate;
-
-    private CommentBuilder() {}
-
-    public static CommentBuilder aComment() {
-      return new CommentBuilder();
-    }
-
-    public CommentBuilder withId(Integer id) {
-      this.id = id;
-      return this;
-    }
-
-    public CommentBuilder withMaster(User master) {
-      this.master = master;
-      return this;
-    }
-
-    public CommentBuilder withCommentator(User commentator) {
-      this.commentator = commentator;
-      return this;
-    }
-
-    public CommentBuilder withCommentText(String commentText) {
-      this.commentText = commentText;
-      return this;
-    }
-
-    public CommentBuilder withServiceMark(int serviceMark) {
-      this.serviceMark = serviceMark;
-      return this;
-    }
-
-    public CommentBuilder withCommentDate(Date commentDate){
-      this.commentDate = commentDate;
-      return this;
-    }
-
-    public Comment build() {
-      return new Comment(this);
-    }
   }
 }

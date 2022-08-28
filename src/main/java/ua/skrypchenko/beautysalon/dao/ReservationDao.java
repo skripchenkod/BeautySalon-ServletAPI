@@ -17,4 +17,6 @@ public interface ReservationDao {
     void updateReservation (Reservation reservation);
 
     void deleteReservation(int reservationId);
+
+    String getClientName(Reservation reservation);
 }

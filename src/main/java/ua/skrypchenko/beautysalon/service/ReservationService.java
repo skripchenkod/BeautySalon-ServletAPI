@@ -30,5 +30,9 @@ public class ReservationService {
         reservationDao.deleteReservation(reservationId);
     }
 
+    public String getClientName (Reservation reservation){
+        return reservationDao.getClientName(reservation);
+    }
+
 
 }

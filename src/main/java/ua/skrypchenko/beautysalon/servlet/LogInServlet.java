@@ -1,8 +1,7 @@
 package ua.skrypchenko.beautysalon.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ua.skrypchenko.beautysalon.dto.UserDto;
-import ua.skrypchenko.beautysalon.entity.User;
+import ua.skrypchenko.beautysalon.service.CommentService;
 import ua.skrypchenko.beautysalon.service.UserService;
 
 import javax.servlet.ServletException;
@@ -17,6 +16,7 @@ import java.util.Locale;
 @WebServlet("/logIn")
 public class LogInServlet extends HttpServlet {
     UserService userService = new UserService();
+    CommentService service = new CommentService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
