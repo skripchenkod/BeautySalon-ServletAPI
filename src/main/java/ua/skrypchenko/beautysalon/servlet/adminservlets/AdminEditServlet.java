@@ -1,10 +1,13 @@
 package ua.skrypchenko.beautysalon.servlet.adminservlets;
 
+import org.apache.log4j.Logger;
 import ua.skrypchenko.beautysalon.entity.Procedure;
 import ua.skrypchenko.beautysalon.entity.Reservation;
 import ua.skrypchenko.beautysalon.entity.User;
 import ua.skrypchenko.beautysalon.service.MasterScheduleService;
 import ua.skrypchenko.beautysalon.service.ReservationService;
+import ua.skrypchenko.beautysalon.service.UserService;
+import ua.skrypchenko.beautysalon.servlet.masterservlets.MasterChooseDateServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,15 +23,16 @@ import java.util.List;
 public class AdminEditServlet extends HttpServlet {
     private final Reservation reservation = new Reservation();
     private final MasterScheduleService masterScheduleService = new MasterScheduleService();
+    UserService userService = new UserService();
     private final ReservationService reservationService = new ReservationService();
+    private static final Logger LOGGER = Logger.getLogger(AdminEditServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("masters", userService.getMasterWithClient());
         String masterName = req.getParameter("mastername");
         String date = req.getParameter("date");
         String reservationId =req.getParameter("reservationId");
-
-        System.out.println(masterName + date);
 
         List<String> freeSlots = masterScheduleService.getFreeTimeSlot(masterName, date);
         req.setAttribute("freeslots", freeSlots);
@@ -44,6 +48,8 @@ public class AdminEditServlet extends HttpServlet {
         String freeTime = req.getParameter("freeTime");
         reservation.setStart(Time.valueOf(freeTime));
         reservationService.updateReservation(reservation);
+        LOGGER.info("The request was accepted");
+
         resp.sendRedirect("/adminPage/editReservation");
     }
 }

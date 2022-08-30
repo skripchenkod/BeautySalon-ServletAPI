@@ -7,9 +7,7 @@
 </head>
 <body>
 
-<jsp:include page='masterPage.jsp'>
-    <jsp:param name="workdays" value="${workday}"/>
-</jsp:include>
+<%@ include file="masterPage.jsp" %><br/>
 <div class="form-style-2">
     <div class="form-style-2-heading">
         Hello hairdresser!

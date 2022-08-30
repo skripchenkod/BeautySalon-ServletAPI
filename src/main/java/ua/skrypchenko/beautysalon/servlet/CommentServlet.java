@@ -1,5 +1,6 @@
 package ua.skrypchenko.beautysalon.servlet;
 
+import org.apache.log4j.Logger;
 import ua.skrypchenko.beautysalon.entity.Comment;
 import ua.skrypchenko.beautysalon.entity.User;
 import ua.skrypchenko.beautysalon.service.CommentService;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 public class CommentServlet extends HttpServlet {
     CommentService commentService = new CommentService();
     Comment comment = new Comment();
+    private static final Logger LOGGER = Logger.getLogger(CommentServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,6 +48,7 @@ public class CommentServlet extends HttpServlet {
         comment.setCommentText(commentText);
 
         commentService.insertComment(comment);
+        LOGGER.info("The request was added");
         doGet(req,resp);
     }
 }

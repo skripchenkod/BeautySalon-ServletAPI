@@ -1,5 +1,6 @@
 package ua.skrypchenko.beautysalon.servlet.masterservlets;
 
+import org.apache.log4j.Logger;
 import ua.skrypchenko.beautysalon.dto.MastersScheduleDto;
 import ua.skrypchenko.beautysalon.entity.Reservation;
 import ua.skrypchenko.beautysalon.entity.User;
@@ -7,6 +8,7 @@ import ua.skrypchenko.beautysalon.service.MasterScheduleService;
 import ua.skrypchenko.beautysalon.service.ReservationService;
 import ua.skrypchenko.beautysalon.service.CommentService;
 import ua.skrypchenko.beautysalon.service.UserService;
+import ua.skrypchenko.beautysalon.servlet.CommentServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +28,7 @@ public class MasterChooseDateServlet extends HttpServlet {
     ReservationService reservationService = new ReservationService();
     Reservation reservation = new Reservation();
     CommentService service = new CommentService();
+    private static final Logger LOGGER = Logger.getLogger(MasterChooseDateServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,6 +61,7 @@ public class MasterChooseDateServlet extends HttpServlet {
 
         service.send(userService.getEmail(clientName), reservation.getBeautyMaster().getUsername(), clientName);
         reservationService.deleteProcedure(reservation);
+        LOGGER.info("The request was accepted");
 
         resp.sendRedirect("/masterPage");
     }

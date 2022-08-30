@@ -2,10 +2,8 @@ package ua.skrypchenko.beautysalon.dao.impl;
 
 import ua.skrypchenko.beautysalon.config.PostgresConfig;
 import ua.skrypchenko.beautysalon.dao.CommentDao;
-import ua.skrypchenko.beautysalon.dto.MastersScheduleDto;
 import ua.skrypchenko.beautysalon.entity.Comment;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,13 +12,13 @@ public class CommentImpl implements CommentDao {
 
     private final String SQL_INSERT_COMMENT= "INSERT INTO comments (comment_text, comment_date, service_mark, commentator_id, master_id) VALUES (?, ?, ?, (SELECT user_id FROM users WHERE username = ?), (SELECT user_id FROM users WHERE username = ?))";
 
-    private final DataSource dataSource = PostgresConfig.getInstance();
+    PostgresConfig postgresConfig = new PostgresConfig();
     private Connection connection;
 
     @Override
     public void insertComment(Comment comment) {
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT_COMMENT);
             ps.setString(1, comment.getCommentText());

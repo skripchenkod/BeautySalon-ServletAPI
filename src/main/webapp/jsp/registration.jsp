@@ -19,7 +19,7 @@
             <input class="password-field" type="password" id="password" name="password">
         </label>
         <label for="email">Email
-            <input class="text-input" type="password" id="email" name="email">
+            <input class="text-input" type="text" id="email" name="email">
         </label>
         <input type="submit" value="Registration">
     </form>

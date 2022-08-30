@@ -2,6 +2,7 @@ package ua.skrypchenko.beautysalon.servlet.adminservlets;
 
 import ua.skrypchenko.beautysalon.entity.Reservation;
 import ua.skrypchenko.beautysalon.service.ReservationService;
+import ua.skrypchenko.beautysalon.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +14,13 @@ import java.util.List;
 
 @WebServlet("/adminPage/reservation")
 public class AdminReservationServlet extends HttpServlet {
-
+    UserService userService = new UserService();
     ReservationService reservationService = new ReservationService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String clientName = req.getParameter("clientName");
+        req.setAttribute("masters", userService.getMasterWithClient());
+        String clientName = req.getParameter("client");
 
 
         List<Reservation> reservations = reservationService.getReservationByClient(clientName);

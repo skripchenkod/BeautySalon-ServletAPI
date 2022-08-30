@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<taglib>
+
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>simple</short-name>
+
+<tag>
+<name>today</name>
+<tag-class>ua.skrypchenko.beautysalon.servlet.MyTagHandler</tag-class>
+</tag>
+
+</taglib>

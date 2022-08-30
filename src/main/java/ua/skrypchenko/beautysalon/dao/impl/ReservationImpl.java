@@ -6,11 +6,9 @@ import ua.skrypchenko.beautysalon.entity.Procedure;
 import ua.skrypchenko.beautysalon.entity.Reservation;
 import ua.skrypchenko.beautysalon.entity.User;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ReservationImpl implements ReservationDao {
@@ -23,7 +21,8 @@ public class ReservationImpl implements ReservationDao {
     private final String SQL_GET_CLIENT_NAME = "SELECT username from users WHERE user_id = (SELECT client_user_id from reservations  WHERE start_hour = ? AND data = ? AND beauty_master_user_id = (SELECT user_id username from users WHERE username = ?))";
     private final String SQL_GET_RESERVATION_BY_CLIENT = "SELECT reservation_id as id,start_hour, end_hour, users.username as master_name, procedures.name as procedure_name, data from reservations, users, procedures WHERE reservations.beauty_master_user_id = users.user_id AND reservations.procedure_id = procedures.procedure_id AND  client_user_id = (SELECT user_id from users WHERE username = ?)";
 
-    private final DataSource dataSource = PostgresConfig.getInstance();
+    PostgresConfig postgresConfig = new PostgresConfig();
+
     private Connection connection;
 
 
@@ -31,7 +30,7 @@ public class ReservationImpl implements ReservationDao {
     public List<Reservation> getAll() {
         List<Reservation> reservations = new ArrayList<>();
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(SQL_GET_ALL_RESERVATION);
@@ -48,7 +47,7 @@ public class ReservationImpl implements ReservationDao {
     private int getDuration(Reservation reservation) {
         int duration = 0;
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_GET_DURATION);
             ps.setString(1, reservation.getProcedure().getName());
@@ -66,7 +65,7 @@ public class ReservationImpl implements ReservationDao {
 
     public void setReservation(Reservation reservation) {
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT_RESERVATION);
             ps.setTime(1, getEndTime(reservation, getDuration(reservation)));
@@ -88,7 +87,7 @@ public class ReservationImpl implements ReservationDao {
     @Override
     public void deleteProcedure(Reservation reservation) {
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_RESERVATION);
 
@@ -105,7 +104,7 @@ public class ReservationImpl implements ReservationDao {
     public String getClientName(Reservation reservation) {
         String clientName = null;
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_GET_CLIENT_NAME);
 
@@ -126,7 +125,7 @@ public class ReservationImpl implements ReservationDao {
     public List<Reservation> getReservationByClient(String clientName) {
         List<Reservation> reservations = new ArrayList<>();
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_GET_RESERVATION_BY_CLIENT);
             ps.setString(1, clientName);
@@ -151,13 +150,13 @@ public class ReservationImpl implements ReservationDao {
     @Override
     public void updateReservation(Reservation reservation) {
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_UPDATE_RESERVATION);
             ps.setTime(1, Time.valueOf(reservation.getStart().toString()));
             ps.setTime(2, getEndTime(reservation, getDuration(reservation)));
             ps.setInt(3, reservation.getId());
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
 
         } catch (SQLException s) {
             s.printStackTrace();
@@ -167,7 +166,7 @@ public class ReservationImpl implements ReservationDao {
     @Override
     public void deleteReservation(int reservationId) {
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_RESERVATION_BY_ID);
             ps.setInt(1, reservationId);
             ResultSet rs = ps.executeQuery();

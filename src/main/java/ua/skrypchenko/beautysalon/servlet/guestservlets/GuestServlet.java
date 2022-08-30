@@ -1,9 +1,11 @@
 package ua.skrypchenko.beautysalon.servlet.guestservlets;
 
+import org.apache.log4j.Logger;
 import ua.skrypchenko.beautysalon.dto.ProcedureDto;
 import ua.skrypchenko.beautysalon.entity.Rating;
 import ua.skrypchenko.beautysalon.service.ProcedureService;
 import ua.skrypchenko.beautysalon.service.UserService;
+import ua.skrypchenko.beautysalon.servlet.CommentServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ public class GuestServlet extends HttpServlet {
 
     ProcedureService guestService = new ProcedureService();
     UserService userService = new UserService();
+    private static final Logger LOGGER = Logger.getLogger(GuestServlet.class);
 
     List<Rating> masters = userService.getMasters();
     List<ProcedureDto> procedures = guestService.getAll();
@@ -35,18 +38,21 @@ public class GuestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("name") != null) {
             masters = userService.getSortMastersByName();
-            doGet(req,resp);
+            LOGGER.info("The request was accepted");
+            resp.sendRedirect("guestPage");
         }
 
         if (req.getParameter("rating") != null) {
             masters = userService.getSortMastersByRating();
-            doGet(req,resp);
+            LOGGER.info("The request was accepted");
+            resp.sendRedirect("guestPage");;
         }
 
         String masterName = req.getParameter("master");
         if (masterName != null){
             procedures = guestService.getProcedureByNameOfMaster(masterName);
-            doGet(req, resp);
+            LOGGER.info("The request was accepted");
+            resp.sendRedirect("guestPage");
         }
     }
 }

@@ -3,14 +3,10 @@ package ua.skrypchenko.beautysalon.dao.impl;
 import ua.skrypchenko.beautysalon.config.PostgresConfig;
 import ua.skrypchenko.beautysalon.dao.MasterScheduleDao;
 import ua.skrypchenko.beautysalon.dto.MastersScheduleDto;
-import ua.skrypchenko.beautysalon.entity.Reservation;
 import ua.skrypchenko.beautysalon.entity.User;
 
-import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class MasterScheduleDaoImpl implements MasterScheduleDao {
@@ -22,7 +18,8 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
     private final String SQL_GET_BUSY_SLOTS_WITH_DURATION = "SELECT start_hour, duration_hours from reservations, procedures, users WHERE procedures.procedure_id = reservations.procedure_id AND reservations.beauty_master_user_id = users.user_id AND username = ? AND data = ?";
     private final String SQL_GET_BUSY_SLOTS = "SELECT start_hour from reservations, users WHERE  reservations.beauty_master_user_id = users.user_id AND username = ? AND data = ?";
 
-    private final DataSource dataSource = PostgresConfig.getInstance();
+    PostgresConfig postgresConfig = new PostgresConfig();
+
     private Connection connection;
 
     @Override
@@ -30,7 +27,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
         List<MastersScheduleDto> masterSchedules = new ArrayList<>();
 
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_GET_SCHEDULE_FOR_CLIENT);
             ps.setString(1, procedureName);
@@ -51,7 +48,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
     public List<Time> getScheduleForBusyTimeSlots(int master) {
         List<Time> slots = new ArrayList<>();
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
             PreparedStatement ps = connection.prepareStatement(SQL_GET_SLOTS);
             ps.setInt(1, master);
             ResultSet rs = ps.executeQuery();
@@ -70,7 +67,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
     public List<String> getScheduleForFreeTimeSlots(String masterName, Date date){
        List<String> schedule = new ArrayList<>();
        try {
-           this.connection = dataSource.getConnection();
+           this.connection = postgresConfig.getСonnection();
            PreparedStatement ps = connection.prepareStatement(SQL_GET_SCHEDULE_Masters);
            ps.setDate(1,date);
            ps.setString(2,masterName);
@@ -91,7 +88,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
     public List<String> getBusyTimeSlotsWithDuration(String masterName, Date date){
         List<String>  busySlots = new ArrayList<>();
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
             PreparedStatement ps = connection.prepareStatement(SQL_GET_BUSY_SLOTS_WITH_DURATION);
             ps.setString(1, masterName);
             ps.setDate(2, date);
@@ -112,7 +109,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
     public List<String> getBusyTimeSlots(String masterName, Date date){
         List<String>  busySlots = new ArrayList<>();
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
             PreparedStatement ps = connection.prepareStatement(SQL_GET_BUSY_SLOTS);
             ps.setString(1, masterName);
             ps.setDate(2, date);
@@ -133,7 +130,7 @@ public class MasterScheduleDaoImpl implements MasterScheduleDao {
         List<MastersScheduleDto> masterSchedules = new ArrayList<>();
 
         try {
-            this.connection = dataSource.getConnection();
+            this.connection = postgresConfig.getСonnection();
 
             PreparedStatement ps = connection.prepareStatement(SQL_GET_SCHEDULE_FOR_MASTER);
             ps.setString(1, masterName);

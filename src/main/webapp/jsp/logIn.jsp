@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -12,13 +12,21 @@
         Please Log In!
     </div>
     <form method="post" action="${pageContext.request.contextPath}/logIn">
-        <label for="userName">User name
-            <input class="input-field" type="text" id="username" name="username">
+        <label for="email">email
+            <input class="input-field" type="text" id="email" name="email">
         </label>
         <label for="password">Password
             <input class="password-field" type="password" id="password" name="password">
         </label>
         <input type="submit" value="Log in">
     </form>
+    <div class="footer">
+        <div class="copyright">
+            <small><jsp:include page='mytags.jsp'>
+                <jsp:param name="workdays" value="${workday}"/>
+            </jsp:include>
+            </small>
+        </div>
+    </div>
 </body>
 </html>

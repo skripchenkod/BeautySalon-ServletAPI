@@ -1,5 +1,7 @@
 package ua.skrypchenko.beautysalon.servlet;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +13,13 @@ import java.io.IOException;
 @WebServlet("/logOut")
 public class LogOutServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(LogOutServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOGGER.info("User logged out successfully");
         HttpSession httpSession = req.getSession(false);
         httpSession.invalidate();
-        req.getServletContext().getRequestDispatcher("/jsp/logIn.jsp").forward(req, resp);
+        resp.sendRedirect("logIn");
     }
 }
