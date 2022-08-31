@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class CommentService {
     final String username = "skrypchenko.dm@icloud.com";
-    final String password = "pyeq-iykv-tsyn-mmit";
+    final String password = "";
 
     CommentDao commentDao = new CommentImpl();
 
