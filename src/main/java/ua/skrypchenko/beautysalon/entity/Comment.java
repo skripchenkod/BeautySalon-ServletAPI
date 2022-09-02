@@ -26,6 +26,14 @@ public class Comment {
     this.commentDate = commentDate;
   }
 
+  public Comment(User master, User commentator, String commentText, int serviceMark, Date commentDate) {
+    this.master = master;
+    this.commentator = commentator;
+    this.commentText = commentText;
+    this.serviceMark = serviceMark;
+    this.commentDate = commentDate;
+  }
+
   public Comment() {
   }
 

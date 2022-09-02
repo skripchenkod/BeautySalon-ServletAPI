@@ -13,12 +13,12 @@ import java.util.Locale;
 import java.util.Properties;
 
 public class CommentService {
-    final String username = "skrypchenko.dm@icloud.com";
-    final String password = "pyeq-iykv-tsyn-mmit";
+    private final String username = "skrypchenko.dm@icloud.com";
+    private final String password = "xlat-emnn-oyns-lgpn";
 
-    CommentDao commentDao = new CommentImpl();
+    private final CommentDao commentDao = new CommentImpl();
 
-    public void send(String emailTo, String masterName, String clientName){
+    public void send(String emailTo, String masterName, String clientName) {
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
@@ -37,7 +37,7 @@ public class CommentService {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(emailTo));
             message.setSubject("Leave Comment");
-            message.setText("Dear, "+ clientName.toUpperCase(Locale.ROOT) + ", leave comment about our master:\n" +
+            message.setText("Dear, " + clientName.toUpperCase(Locale.ROOT) + ", leave comment about our master:\n" +
                     "http://localhost:8080/commentPage?masterName=" + masterName + "&clientName=" + clientName);
             Transport.send(message);
 
@@ -46,7 +46,11 @@ public class CommentService {
         }
     }
 
-    public List<Integer>getMarks(){
+    public List<Comment> getAllComments() {
+        return commentDao.getAllComments();
+    }
+
+    public List<Integer> getMarks() {
         List<Integer> marks = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
             marks.add(i);
@@ -54,7 +58,7 @@ public class CommentService {
         return marks;
     }
 
-    public void insertComment (Comment comment){
+    public void insertComment(Comment comment) {
         commentDao.insertComment(comment);
     }
 }

@@ -23,8 +23,8 @@ public class AdminPageFilter implements Filter {
 
         if (session == null || session.getAttribute("role") == null) {
 
-            //servletRequest.getServletContext().getRequestDispatcher("/logIn").forward(request,response);
-            response.sendRedirect("logIn");
+            servletRequest.getServletContext().getRequestDispatcher("/logIn").forward(request,response);
+
         }
         else if(!session.getAttribute("role").equals("ADMIN")){
             servletRequest.getServletContext().getRequestDispatcher("/logIn").forward(request,response);

@@ -12,14 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
 @WebServlet("/guestPage")
 public class GuestServlet extends HttpServlet {
 
-    ProcedureService guestService = new ProcedureService();
-    UserService userService = new UserService();
+    private final ProcedureService guestService = new ProcedureService();
+    private final UserService userService = new UserService();
     private static final Logger LOGGER = Logger.getLogger(GuestServlet.class);
 
     List<Rating> masters = userService.getMasters();
@@ -27,6 +28,8 @@ public class GuestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("role", "guest");
 
         req.setAttribute("procedures", procedures);
         req.setAttribute("masters", masters);

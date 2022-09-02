@@ -16,6 +16,12 @@ public class Procedure {
     this.durationHours = durationHours;
   }
 
+  public Procedure(String name, String description, int durationHours) {
+    this.name = name;
+    this.description = description;
+    this.durationHours = durationHours;
+  }
+
   public Procedure(String name) {
     this.name = name;
   }

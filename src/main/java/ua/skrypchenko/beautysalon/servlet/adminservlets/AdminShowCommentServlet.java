@@ -1,6 +1,6 @@
 package ua.skrypchenko.beautysalon.servlet.adminservlets;
 
-import ua.skrypchenko.beautysalon.service.ReservationService;
+import ua.skrypchenko.beautysalon.service.CommentService;
 import ua.skrypchenko.beautysalon.service.UserService;
 
 import javax.servlet.ServletException;
@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/adminPage/editReservation")
-public class AdminEditReservationServlet extends HttpServlet {
+@WebServlet("/adminPage/allComments")
+public class AdminShowCommentServlet extends HttpServlet {
 
-    private final UserService userService = new UserService();
+    private final CommentService service = new CommentService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("masters", userService.getMasterWithClient());
+        req.setAttribute("comments", service.getAllComments());
 
-        req.getServletContext().getRequestDispatcher("/jsp/adminEditReservation.jsp").forward(req, resp);
+        req.getServletContext().getRequestDispatcher("/jsp/adminShowComment.jsp").forward(req, resp);
     }
 }

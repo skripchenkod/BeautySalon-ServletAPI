@@ -20,8 +20,14 @@ public class AdminServlet extends HttpServlet {
         if(req.getParameter("editReservation") != null){
             resp.sendRedirect("/adminPage/editReservation");
         }
-        else if(req.getParameter("editSchedule") != null){
-            resp.sendRedirect("adminPage");
+        if(req.getParameter("showComments") != null){
+            resp.sendRedirect("/adminPage/allComments");
+        }
+        if(req.getParameter("editSchedule") != null){
+            resp.sendRedirect("/adminPage/editSchedule");
+        }
+        if(req.getParameter("registration") != null){
+            resp.sendRedirect("/registration");
         }
     }
 }

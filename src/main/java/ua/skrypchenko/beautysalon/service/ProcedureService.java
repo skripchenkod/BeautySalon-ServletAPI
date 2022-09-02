@@ -8,8 +8,8 @@ import ua.skrypchenko.beautysalon.mapper.ProcedureMapper;
 import java.util.List;
 
 public class ProcedureService {
-    ProcedureDao procedureDao = new ProcedureDaoImpl();
-    ProcedureMapper procedureMapper = new ProcedureMapper();
+    private final ProcedureDao procedureDao = new ProcedureDaoImpl();
+    private final ProcedureMapper procedureMapper = new ProcedureMapper();
 
     public List<ProcedureDto> getAll(){
         return procedureMapper.entityToDtos(procedureDao.getAll());

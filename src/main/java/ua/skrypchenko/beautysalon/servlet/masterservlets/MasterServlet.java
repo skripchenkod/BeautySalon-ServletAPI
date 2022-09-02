@@ -19,9 +19,7 @@ import java.util.List;
 
 @WebServlet("/masterPage")
 public class MasterServlet extends HttpServlet {
-    MasterScheduleService masterScheduleService = new MasterScheduleService();
-    ReservationService reservationService = new ReservationService();
-    Reservation reservation = new Reservation();
+    private final MasterScheduleService masterScheduleService = new MasterScheduleService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

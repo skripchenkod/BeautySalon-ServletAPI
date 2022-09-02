@@ -23,11 +23,11 @@ import java.util.List;
 
 @WebServlet("/masterPage/chooseDate")
 public class MasterChooseDateServlet extends HttpServlet {
-    MasterScheduleService masterScheduleService = new MasterScheduleService();
-    UserService userService = new UserService();
-    ReservationService reservationService = new ReservationService();
-    Reservation reservation = new Reservation();
-    CommentService service = new CommentService();
+    private final MasterScheduleService masterScheduleService = new MasterScheduleService();
+    private final UserService userService = new UserService();
+    private final ReservationService reservationService = new ReservationService();
+    private final Reservation reservation = new Reservation();
+    private final CommentService service = new CommentService();
     private static final Logger LOGGER = Logger.getLogger(MasterChooseDateServlet.class);
 
     @Override

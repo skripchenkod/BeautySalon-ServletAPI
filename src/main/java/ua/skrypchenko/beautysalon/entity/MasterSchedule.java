@@ -1,21 +1,24 @@
 package ua.skrypchenko.beautysalon.entity;
 
-import javax.xml.crypto.Data;
+import java.util.Date;
 import java.sql.Time;
 import java.util.Objects;
 
 public class MasterSchedule {
     private int id;
-    private Data workDay;
+    private Date workDay;
     private Time startWorkDay;
     private Time endWorkDay;
     private User masterId;
 
-    public MasterSchedule(Data workDay, Time startWorkDay, Time endWorkDay, User masterId) {
+    public MasterSchedule(Date workDay, Time startWorkDay, Time endWorkDay, User masterId) {
         this.workDay = workDay;
         this.startWorkDay = startWorkDay;
         this.endWorkDay = endWorkDay;
         this.masterId = masterId;
+    }
+
+    public MasterSchedule() {
     }
 
     public int getId() {
@@ -26,11 +29,11 @@ public class MasterSchedule {
         this.id = id;
     }
 
-    public Data getWorkDay() {
+    public Date getWorkDay() {
         return workDay;
     }
 
-    public void setWorkDay(Data workDay) {
+    public void setWorkDay(Date workDay) {
         this.workDay = workDay;
     }
 

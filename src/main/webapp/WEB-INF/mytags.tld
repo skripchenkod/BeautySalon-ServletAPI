@@ -8,7 +8,7 @@
 
 <tag>
 <name>today</name>
-<tag-class>ua.skrypchenko.beautysalon.servlet.MyTagHandler</tag-class>
+<tag-class>ua.skrypchenko.beautysalon.handler.TagHandler</tag-class>
 </tag>
 
 </taglib>

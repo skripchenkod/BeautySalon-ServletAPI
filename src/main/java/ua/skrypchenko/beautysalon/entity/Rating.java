@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Rating {
 
-  private final Integer id;
+  private  Integer id;
 
   private User master;
 
@@ -14,6 +14,10 @@ public class Rating {
     this.id = id;
     this.master = master;
     this.ratingMark = ratingMark;
+  }
+
+  public Rating(User master) {
+    this.master = master;
   }
 
   public Integer getId() {

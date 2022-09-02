@@ -23,10 +23,10 @@ public class ClientPageFilter implements Filter {
 
         if (session == null || session.getAttribute("role") == null) {
 
-            servletRequest.getServletContext().getRequestDispatcher("/logIn").forward(request,response);
+            servletRequest.getServletContext().getRequestDispatcher("/jsp/logIn.jsp").forward(request,response);
         }
         else if(!session.getAttribute("role").equals("CLIENT")){
-            servletRequest.getServletContext().getRequestDispatcher("/logIn").forward(request,response);
+            servletRequest.getServletContext().getRequestDispatcher("/jsp/logIn.jsp").forward(request,response);
 
         }
 

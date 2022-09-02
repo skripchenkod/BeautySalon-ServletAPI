@@ -20,6 +20,9 @@ public class LogOutServlet extends HttpServlet {
         LOGGER.info("User logged out successfully");
         HttpSession httpSession = req.getSession(false);
         httpSession.invalidate();
+        HttpSession session = req.getSession();
+        session.setAttribute("message", "You log out!");
+        session.setAttribute("type", "success fade show");
         resp.sendRedirect("logIn");
     }
 }

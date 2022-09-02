@@ -49,6 +49,6 @@ public class CommentServlet extends HttpServlet {
 
         commentService.insertComment(comment);
         LOGGER.info("The request was added");
-        doGet(req,resp);
+        resp.sendRedirect("/logIn");
     }
 }

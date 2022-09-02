@@ -3,7 +3,7 @@ package ua.skrypchenko.beautysalon.servlet;
 import org.apache.log4j.Logger;
 import ua.skrypchenko.beautysalon.dto.UserDto;
 import ua.skrypchenko.beautysalon.exeption.UserNotFoundException;
-import ua.skrypchenko.beautysalon.service.PasswordEncoderService;
+import ua.skrypchenko.beautysalon.handler.ExceptionHandler;
 import ua.skrypchenko.beautysalon.service.UserService;
 
 import javax.servlet.ServletException;
@@ -17,32 +17,32 @@ import java.util.Locale;
 
 @WebServlet("/logIn")
 public class LogInServlet extends HttpServlet {
-    UserService userService = new UserService();
-    PasswordEncoderService passwordEncoderService = new PasswordEncoderService();
+    private final UserService userService = new UserService();
     private static final Logger LOGGER = Logger.getLogger(LogInServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String eMail = req.getParameter("email");
+        String username = req.getParameter("username");
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
 
-        UserDto user = new UserDto(eMail, passwordEncoderService.encode(password));
+        UserDto user = new UserDto(username, password);
 
         try {
-            String result = userService.chekUser(user);
-            LOGGER.info("User " + eMail + " logged in successfully");
-            session.setAttribute("userName", userService.getUserName(user));
+            String result = userService.getUserRole(user);
+            LOGGER.info("User " + username + " logged in successfully");
+            session.setAttribute("userName", username);
             session.setAttribute("role", result);
+            session.setAttribute("user", username);
             resp.sendRedirect(result.toLowerCase(Locale.ROOT)+"Page");
         } catch (UserNotFoundException e) {
-            LOGGER.warn("User not found with " + eMail + " email and provided password");
-            resp.sendRedirect("logIn");
+            ExceptionHandler exceptionHandler = new ExceptionHandler(e, "User doesn't exist. Try again!", "danger fade show", "/logIn");
+            exceptionHandler.handling(req,resp);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/jsp/logintest.jsp").forward(req, resp);
+        req.getServletContext().getRequestDispatcher("/jsp/logIn.jsp").forward(req, resp);
     }
 }

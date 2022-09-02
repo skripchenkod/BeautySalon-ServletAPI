@@ -1,10 +1,10 @@
-package ua.skrypchenko.beautysalon.servlet;
+package ua.skrypchenko.beautysalon.handler;
 
 import java.util.Calendar;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-public class MyTagHandler extends TagSupport{
+public class TagHandler extends TagSupport{
 
     public int doStartTag() throws JspException {
         JspWriter out=pageContext.getOut();

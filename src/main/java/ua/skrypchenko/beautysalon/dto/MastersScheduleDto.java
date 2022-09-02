@@ -2,7 +2,6 @@ package ua.skrypchenko.beautysalon.dto;
 
 import ua.skrypchenko.beautysalon.entity.User;
 
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -11,17 +10,23 @@ public class MastersScheduleDto {
     private Date workDay;
     private Time startWorkDay;
     private Time endWorkDay;
-    private User masterId;
+    private User master;
 
     public MastersScheduleDto(Date workDay, Time startWorkDay, Time endWorkDay, User masterId) {
         this.workDay = workDay;
         this.startWorkDay = startWorkDay;
         this.endWorkDay = endWorkDay;
-        this.masterId = masterId;
+        this.master = masterId;
     }
 
     public MastersScheduleDto(Date workDay) {
         this.workDay = workDay;
+    }
+
+    public MastersScheduleDto(Date workDay, Time startWorkDay, Time endWorkDay) {
+        this.workDay = workDay;
+        this.startWorkDay = startWorkDay;
+        this.endWorkDay = endWorkDay;
     }
 
     public Date getWorkDay() {
@@ -49,16 +54,16 @@ public class MastersScheduleDto {
     }
 
     public User getMasterId() {
-        return masterId;
+        return master;
     }
 
     public void setMasterId(User masterId) {
-        this.masterId = masterId;
+        this.master = masterId;
     }
 
     @Override
     public String toString() {
         return
-               masterId + " " + workDay + " " + startWorkDay + " " + endWorkDay;
+               master + " " + workDay + " " + startWorkDay + " " + endWorkDay;
     }
 }
