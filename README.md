@@ -13,4 +13,3 @@ The administrator can:
 - accept payment for the service.
 The hairdresser sees his schedule (busy and free time slots) and marks the execution of the order.
 After providing services, the Client leaves feedback. The offer to leave feedback comes to the Client's e-mail the day after the service is provided.
-![image](https://user-images.githubusercontent.com/69472608/189309000-1b54d2a0-66c3-43d1-9735-dee3f6832ec7.png)
