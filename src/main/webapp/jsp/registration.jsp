@@ -1,8 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="messages"/>
+<c:set var="current" value="${param.lang}" scope="session"/>
+
+<c:if test="${not empty current}">
+    <fmt:setLocale value="${current}" scope="session"/>
+</c:if>
+
+<fmt:setBundle basename="message" scope="session"/>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -34,21 +39,21 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="username" class="form-control" placeholder="Username" type="text" required>
+                    <input name="username" class="form-control" placeholder=<fmt:message key="login.username"/> type="text" required>
                 </div>
 
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input name="password" class="form-control" placeholder="Password" type="password" required>
+                    <input name="password" class="form-control" placeholder=<fmt:message key="login.password"/> type="password" required>
                 </div>
 
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input name="email" class="form-control" placeholder="email" type="email" required>
+                    <input name="email" class="form-control" placeholder=<fmt:message key="login.email"/> type="email" required>
                 </div>
 
                 <c:if test="${role eq 'ADMIN'}">

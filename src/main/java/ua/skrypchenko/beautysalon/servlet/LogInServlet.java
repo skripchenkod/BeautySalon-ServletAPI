@@ -32,7 +32,6 @@ public class LogInServlet extends HttpServlet {
             String result = userService.getUserRole(user);
             LOGGER.info("User " + username + " logged in successfully");
             session.setAttribute("userName", username);
-            session.setAttribute("role", result);
             session.setAttribute("user", username);
             resp.sendRedirect(result.toLowerCase(Locale.ROOT)+"Page");
         } catch (UserNotFoundException e) {

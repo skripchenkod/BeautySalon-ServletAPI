@@ -24,9 +24,6 @@ public class ReservationImpl implements ReservationDao {
 
     private final PostgresConfig postgresConfig = new PostgresConfig();
 
-    private Connection connection;
-
-
     @Override
     public List<Reservation> getAll() {
         List<Reservation> reservations = new ArrayList<>();
@@ -160,7 +157,7 @@ public class ReservationImpl implements ReservationDao {
              PreparedStatement ps = connection.prepareStatement(SQL_DELETE_RESERVATION_BY_ID)){
 
             ps.setInt(1, reservationId);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new DBConnectionException(e);
         }

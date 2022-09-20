@@ -137,16 +137,16 @@ public class UserDaoJdbcImpl implements UserDao {
         try (Connection connection = postgresConfig.getСonnection();
              PreparedStatement ps = connection.prepareStatement(SQL_FIND_USER_BY_USERNAME)) {
 
-            String email = null;
+            String username = null;
 
             ps.setString(1, userName);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                email = rs.getString("e_mail");
+                username = rs.getString("e_mail");
             }
 
-            if (email == null) {
+            if (username == null) {
                 return false;
             }
 

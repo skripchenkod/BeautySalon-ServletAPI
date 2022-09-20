@@ -1,8 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="messages"/>
+<c:set var="current" value="${param.lang}" scope="session"/>
+
+<c:if test="${not empty current}">
+    <fmt:setLocale value="${current}" scope="session"/>
+</c:if>
+
+<fmt:setBundle basename="message" scope="session"/>
 
 <!DOCTYPE html>
 <head>
@@ -32,8 +37,8 @@
             <h4 class="card-title mt-3 text-center"><fmt:message key="login.login"/></h4>
 
             <form class="form-signin" action="/logIn" method="post">
-                <input type="text" name="username" class="form-control" placeholder="Username" required>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <input type="text" name="username" class="form-control" placeholder=<fmt:message key="login.username"/> required>
+                <input type="password" name="password" class="form-control" placeholder=<fmt:message key="login.password"/> required>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"><fmt:message
                         key="login.button.login"/></button>
                 <p class="text-center"><fmt:message key="login.link.to.registration"/><a

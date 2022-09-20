@@ -1,8 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="messages"/>
+<c:set var="current" value="${param.lang}" scope="session"/>
+
+<c:if test="${not empty current}">
+    <fmt:setLocale value="${current}" scope="session"/>
+</c:if>
+
+<fmt:setBundle basename="message" scope="session"/>
 <!DOCTYPE html>
 
 <head>
@@ -49,20 +54,20 @@
 </div>
 <table class="table">
     <thead class="thead-dark">
-           <big>Set new work day</big>
-            <p><label for="start">Choose work date:</label>
+           <big><fmt:message key="admin.tablehead.setDay"/></big>
+            <p><label for="start"><fmt:message key="admin.tablehead.chooseDay"/></label>
             <input type="date" id="start" name="workDay"
                        min="2022-09-01" max="2022-12-31" required></p>
 
-        <p><label for="appt">Choose start work day:</label>
+        <p><label for="appt"><fmt:message key="admin.tablehead.startDay"/></label>
             <input type="time" id="appt" name="startTime"
                        min="09:00 " max="18:00" step="3600" required></p>
 
-             <label for="appt">Choose end work day:</label>
+             <label for="appt"><fmt:message key="admin.tablehead.endDay"/></label>
             <input type="time" id="appt" name="endTime"
                        min="09:00 " max="18:00" step="3600" required>
 
-        <p><input formmethod="post" type="submit" value="edit"></p>
+        <p><input formmethod="post" type="submit" value=<fmt:message key="admin.tablehead.edit"/>></p>
 </table>
 </table>
 </form>

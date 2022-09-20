@@ -57,4 +57,8 @@ public class CommentService {
     public void insertComment (Comment comment){
         commentDao.insertComment(comment);
     }
+
+    public List<Comment> getAllComments(){
+        return commentDao.getAllComments();
+    }
 }

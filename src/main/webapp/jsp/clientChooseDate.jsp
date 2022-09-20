@@ -1,8 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="messages"/>
+<c:set var="current" value="${param.lang}" scope="session"/>
+
+<c:if test="${not empty current}">
+    <fmt:setLocale value="${current}" scope="session"/>
+</c:if>
+
+<fmt:setBundle basename="message" scope="session"/>
 <!DOCTYPE html>
 
 <head>
@@ -34,13 +39,13 @@
         <form action="/clientPage/chooseFreeSlots" method="get">
             <tr>
                 <th><fmt:message key="client.tablehead.Master"/></th>
+                <th><fmt:message key="client.tablehead.workDays"/></th>
                 <th><fmt:message key="client.tablehead.WorkStartTimes"/></th>
                 <th><fmt:message key="client.tablehead.WorkEndTimes"/></th>
-                <th><fmt:message key="client.tablehead.workDays"/></th>
                 <th><fmt:message key="client.tablehead.ChooseDay"/></th>
                 <th></th>
             </tr>
-            <p>Procedure name: ${nameProcedure}</p>
+            <p><fmt:message key="client.tablehead.ProcedureName"/>${nameProcedure}</p>
             <td><input hidden name="nameProcedure" value="${nameProcedure}"></td>
         </thead>
         <c:forEach items="${schedule}" var="schedule">
